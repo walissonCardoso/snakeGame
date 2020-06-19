@@ -90,19 +90,29 @@ function touchStarted( ) {
     if( gameState != states.PLAYING )
         return
     
-    // Split screen in half. If snake is walking horizontally, use top and bottom
-    if( snake.lastDirection == dir.LEFT || snake.lastDirection == dir.RIGHT ) {
-        if( mouseY < gameBasic.height / 2 )
+    // Split the screen in two halfs. The left side makes
+    // snake turn left, and the right side makes the snake
+    // turn right
+    if( mouseX < gameBasic.width / 2 ) {
+        if( snake.lastDirection  == dir.RIGHT )
             snake.command( dir.UP );
-        else
+        else if( snake.lastDirection  == dir.LEFT )
             snake.command( dir.DOWN );
-    } else {
-        // If snake is walking vertically, use left and right
-        if( mouseX < gameBasic.width / 2 )
+        else if( snake.lastDirection  == dir.UP )
             snake.command( dir.LEFT );
-        else
+        else if( snake.lastDirection  == dir.DOWN )
             snake.command( dir.RIGHT );
+    } else {
+        if( snake.lastDirection  == dir.RIGHT )
+            snake.command( dir.DOWN );
+        else if( snake.lastDirection  == dir.LEFT )
+            snake.command( dir.UP );
+        else if( snake.lastDirection  == dir.UP )
+            snake.command( dir.RIGHT );
+        else if( snake.lastDirection  == dir.DOWN )
+            snake.command( dir.LEFT );
     }
+    
     return false;
 }
 
